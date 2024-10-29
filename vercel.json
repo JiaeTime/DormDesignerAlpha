@@ -2,22 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "dorm-designer/package.json", // Points to the frontend's package.json
-      "use": "@vercel/react"                // Use the React builder for your frontend
+      "src": "dorm-designer/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dorm-designer/build" }
     },
     {
-      "src": "back-end/index.js",            // Points to the backend's main entry file
-      "use": "@vercel/node"                  // Deploys the backend as a serverless function
+      "src": "back-end/**/*.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",                   // Matches any API route
-      "dest": "/back-end/$1"                // Directs API requests to the backend
-    },
-    {
-      "src": "/(.*)",                        // Matches all other routes
-      "dest": "/dorm-designer/$1"            // Directs all other requests to the frontend
-    }
+    { "src": "/api/(.*)", "dest": "/back-end/$1" },
+    { "src": "/(.*)", "dest": "/dorm-designer/$1" }
   ]
 }
