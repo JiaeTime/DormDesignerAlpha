@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 const uri = 'mongodb+srv://ananyakoduru22:wJJdnMfiXTaPEyFs@cluster0.pjmeg.mongodb.net/dormDesigner?retryWrites=true&w=majority'; 
 
@@ -15,7 +14,8 @@ async function startServer(req, res) {
     const layoutController = (await import('./controllers/layoutController.js')).default;
 
     const app = express();
-    app.use(express.json());
+    app.use(express.json()); 
+    const PORT = process.env.PORT || 5000;
 
     app.use('/api', layoutController);
 
